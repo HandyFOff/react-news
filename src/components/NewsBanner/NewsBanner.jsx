@@ -6,7 +6,7 @@ const NewsBanner = ({ item }) => {
   return (
     <div className={styles.banner}>
       <Image image={item.image} />
-      <h3 className={styles.title}>{item.title}</h3>
+      <a href={item.url} target="_blank" className={styles.title}>{item.title}</a>
       <div className={styles.info}>
         <span className={styles.extra}>{formatTimeAgo(item.published)}</span>
         <span>·</span>
