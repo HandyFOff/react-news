@@ -3,10 +3,10 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_NEWS_API_URL;
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
 
-export const getNews = async () => {
+export const getNews = async (page_number, page_size) => {
   try {
-    const response = await axios.get(`${API_URL}latest-news`, {
-      params: { apiKey: API_KEY },
+    const response = await axios.get(`${API_URL}search`, {
+      params: { apiKey: API_KEY, page_number, page_size },
     });
 
     return response.data;

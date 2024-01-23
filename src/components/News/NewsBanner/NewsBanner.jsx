@@ -1,6 +1,6 @@
-import Image from "../Image/Image";
+import Image from "../../Image/Image";
 import styles from "./NewsBanner.module.scss";
-import { formatTimeAgo } from "../../helpers/formatTimeAgo";
+import { formatTimeAgo } from "../../../helpers/formatTimeAgo";
 
 const NewsBanner = ({ item }) => {
   return (

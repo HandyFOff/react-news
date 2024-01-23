@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
-import NewsBanner from "../components/NewsBanner/NewsBanner";
 import styles from "./Main.module.scss";
 
 import { getNews } from "../api/apiNews";
-import NewsList from "../components/NewsList/NewsList";
-import Skeleton from "../components/Skeleton/Skeleton";
+import News from "../components/News/News";
+
+const pageSize = 10;
 
 const Main = () => {
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const skeletonList = [...Array(30)].map((_, index) => (
-    <Skeleton key={index} type={"item"} />
-  ));
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await getNews();
+        const response = await getNews(currentPage, pageSize);
         setNews(response.news);
         setIsLoading(false);
       } catch (error) {
@@ -26,22 +23,17 @@ const Main = () => {
     };
 
     fetchNews();
-  }, []);
+  }, [currentPage]);
 
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        {isLoading ? (
-          <Skeleton type={"banner"} />
-        ) : news.length ? (
-          <NewsBanner item={news[0]} />
-        ) : null}
-
-        {isLoading ? (
-          skeletonList
-        ) : news.length ? (
-          <NewsList news={news} />
-        ) : null}
+        <News
+          news={news}
+          isLoading={isLoading}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </main>
   );

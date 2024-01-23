@@ -1,0 +1,17 @@
+.pagination {
+  &__page {
+    background-color: #fff;
+    color: #000;
+    border: none;
+
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  &__page {
+    &_active {
+      background-color: #f9f9f9;
+    }
+  }
+}
