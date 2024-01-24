@@ -3,10 +3,6 @@ import Pages from "./Pages/Pages";
 import Button from "../../ui/Button/Button";
 
 const Pagination = ({ currentPage, setCurrentPage, totalPage }) => {
-  const handlePage = (index) => {
-    setCurrentPage(index);
-  };
-
   const handleNextPage = () => {
     if (currentPage < 10) {
       setCurrentPage((prev) => (prev += 1));
@@ -27,8 +23,8 @@ const Pagination = ({ currentPage, setCurrentPage, totalPage }) => {
         style={styles.pagination__btn}
       />
       <Pages
-        handlePage={handlePage}
         currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         totalPage={totalPage}
       />
       <Button

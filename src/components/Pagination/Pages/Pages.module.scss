@@ -3,15 +3,16 @@
     background-color: #fff;
     color: #000;
     border: none;
-
-    width: 28px;
-    height: 28px;
+    padding: 8px;
     border-radius: 6px;
+    &_active {
+      color: #ccc;
+    }
   }
 
-  &__page {
-    &_active {
-      background-color: #f9f9f9;
-    }
+  &__pages {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
