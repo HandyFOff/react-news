@@ -1,0 +1,21 @@
+.pagination {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  &__btn {
+    background-color: #fff;
+    color: #000;
+    border: none;
+
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 6px;
+  }
+}

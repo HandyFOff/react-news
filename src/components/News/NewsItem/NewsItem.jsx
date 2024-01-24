@@ -1,4 +1,4 @@
-import { formatTimeAgo } from "../../helpers/formatTimeAgo";
+import { formatTimeAgo } from "../../../helpers/formatTimeAgo";
 import styles from "./NewsItem.module.scss";
 
 const NewsItem = ({ item }) => {
