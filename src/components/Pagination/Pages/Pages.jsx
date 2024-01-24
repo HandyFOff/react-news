@@ -16,7 +16,7 @@ const Pages = ({ currentPage, totalPage, setCurrentPage }) => {
             handler={() => handlePage(index + 1)}
             disabled={currentPage === index + 1 ? true : false}
             style={`${styles.pagination__page} ${
-              currentPage === index + 1 ? styles.pagination__page_active : ""
+              currentPage === index + 1 && styles.pagination__page_active
             }`}
           />
         );

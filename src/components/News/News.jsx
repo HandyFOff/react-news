@@ -15,9 +15,9 @@ const News = ({ news, isLoading, currentPage, setCurrentPage }) => {
     <>
       {isLoading ? (
         <Skeleton type={"banner"} />
-      ) : news.length ? (
+      ) : news.length && (
         <NewsBanner item={news[0]} />
-      ) : null}
+      )}
 
       <Pagination
         currentPage={currentPage}
@@ -25,7 +25,7 @@ const News = ({ news, isLoading, currentPage, setCurrentPage }) => {
         totalPage={totalPage}
       />
 
-      {isLoading ? skeletonList : news.length ? <NewsList news={news} /> : null}
+      {isLoading ? skeletonList : news.length && <NewsList news={news} />}
 
       <Pagination
         currentPage={currentPage}
