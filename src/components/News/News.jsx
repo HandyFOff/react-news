@@ -67,7 +67,11 @@ const News = () => {
         setCurrentCategory={setCurrentCategory}
       />
 
-      <Search keywords={keywords} setKeywords={setKeywords} placeholder={news.length ? news[0].title : 'Search'}/>
+      <Search
+        keywords={keywords}
+        setKeywords={setKeywords}
+        placeholder={news.length ? news[0].title : "Search"}
+      />
 
       {isLoading ? (
         <Skeleton type={"banner"} />
