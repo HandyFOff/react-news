@@ -3,8 +3,10 @@ import NewsList from "./NewsList/NewsList";
 import Pagination from "../Pagination/Pagination";
 import Skeleton from "../Skeleton/Skeleton";
 import Categories from "../Categories/Categories";
+import Search from "../Search/Search";
 import { useEffect, useState } from "react";
 import { getCategories, getNews } from "../../api/apiNews";
+import { useDebounce } from "../../helpers/hooks/useDebounce";
 
 const skeletonsCount = 30;
 const totalPage = 10;
@@ -14,8 +16,12 @@ const News = () => {
   const [news, setNews] = useState([]);
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState("all");
+
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [keywords, setKeywords] = useState("");
+  const debouncedKeywords = useDebounce(keywords, 1000);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -24,6 +30,7 @@ const News = () => {
           page_number: currentPage,
           page_size: pageSize,
           category: currentCategory,
+          keywords: debouncedKeywords,
         });
         setNews(response.news);
         setIsLoading(false);
@@ -33,7 +40,7 @@ const News = () => {
     };
 
     fetchNews();
-  }, [currentPage, currentCategory]);
+  }, [currentPage, currentCategory, debouncedKeywords]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -54,7 +61,17 @@ const News = () => {
 
   return (
     <>
-      <Categories categories={categories} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory}/>
+      <Categories
+        categories={categories}
+        currentCategory={currentCategory}
+        setCurrentCategory={setCurrentCategory}
+      />
+
+      <Search
+        keywords={keywords}
+        setKeywords={setKeywords}
+        placeholder={news.length ? news[0].title : "Search"}
+      />
 
       {isLoading ? (
         <Skeleton type={"banner"} />
