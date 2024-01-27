@@ -11,7 +11,6 @@ const Categories = ({ categories, changeFilter, currentCategory }) => {
     <div className={styles.categories}>
       {fullCategories.map((category) => {
         const title = formatedText(category);
-
         return (
           <Button
             key={category}

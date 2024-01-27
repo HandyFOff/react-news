@@ -1,50 +1,15 @@
+import styles from "./News.module.scss";
+
 import Pagination from "../Pagination/Pagination";
-import Search from "../Search/Search";
-import NewsBannerSkeleton from "./NewsBanner/NewsBanner";
 import NewsListSkeleton from "./NewsList/NewsList";
 
-import { PAGE_SIZE, TOTAL_PAGES } from "../../constants";
-import { getCategories, getNews } from "../../api/apiNews";
-import { useDebounce } from "../../helpers/hooks/useDebounce";
-import { useFetch } from "../../helpers/hooks/useFetch";
-import CategoriesSkeleton from "../Categories/Categories";
-import { useFilters } from "../../helpers/hooks/useFilters";
+import { TOTAL_PAGES } from "../../constants";
+import NewsFilters from "../NewsFilters/NewsFilters";
 
-const News = () => {
-  const { filters, changeFilter } = useFilters({
-    page_number: 1,
-    page_size: PAGE_SIZE,
-    category: "All",
-    keywords: "",
-  });
-
-  const debouncedKeywords = useDebounce(filters.keywords, 1000);
-
-  const { data: dataNews, isLoading: newsIsLoading } = useFetch(getNews, {
-    ...filters,
-    keywords: debouncedKeywords,
-  });
-
-  const { data: dataCategories, isLoading: categoriesIsLoading } =
-    useFetch(getCategories);
-
+const News = ({ changeFilter, filters, dataNews, isLoading }) => {
   return (
-    <>
-      <CategoriesSkeleton
-        categories={dataCategories && dataCategories.categories}
-        currentCategory={filters.category}
-        changeFilter={changeFilter}
-        isLoading={categoriesIsLoading}
-        type={"categories"}
-      />
-
-      <Search keywords={filters.keywords} changeFilter={changeFilter} />
-
-      <NewsBannerSkeleton
-        item={dataNews && dataNews.news[0]}
-        isLoading={newsIsLoading}
-        type={"banner"}
-      />
+    <div className={styles.section}>
+      <NewsFilters changeFilter={changeFilter} filters={filters} />
 
       <Pagination
         currentPage={filters.page_number}
@@ -54,8 +19,10 @@ const News = () => {
 
       <NewsListSkeleton
         news={dataNews && dataNews.news}
-        isLoading={newsIsLoading}
+        isLoading={isLoading}
         type={"list"}
+        direction={"list"}
+        count={24}
       />
 
       <Pagination
@@ -63,7 +30,7 @@ const News = () => {
         changeFilter={changeFilter}
         totalPage={TOTAL_PAGES}
       />
-    </>
+    </div>
   );
 };
 
