@@ -1,26 +1,37 @@
 .skeletonBanner {
-    padding-top: 100%;
+  padding-top: 100%;
 }
 
 .skeletonList {
-    height: 80px;
-    margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.skeletonBanner, .skeletonList {
-    width: 100%;
-    background-color: #f3f4f5;
+.skeletonItem {
+  height: 80px;
+}
 
-    background: linear-gradient(-90deg, #efefef 0%, #fcfcfc 50%, #efefef 100%);
-    background-size: 400% 400%;
-    animation: pulse 1.2s ease-in-out infinite;
+.skeletonCategories {
+  height: 32px;
+}
+
+.skeletonBanner,
+.skeletonItem,
+.skeletonCategories {
+  width: 100%;
+  background-color: #f3f4f5;
+
+  background: linear-gradient(-90deg, #efefef 0%, #fcfcfc 50%, #efefef 100%);
+  background-size: 400% 400%;
+  animation: pulse 1.2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-    0% {
-      background-position: 0% 0%
-    }
-    100% {
-      background-position: -135% 0%
-    }
+  0% {
+    background-position: 0% 0%;
   }
+  100% {
+    background-position: -135% 0%;
+  }
+}

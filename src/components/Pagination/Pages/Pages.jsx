@@ -1,11 +1,7 @@
 import Button from "../../../ui/Button/Button";
 import styles from "./Pages.module.scss";
 
-const Pages = ({ currentPage, totalPage, setCurrentPage }) => {
-  const handlePage = (index) => {
-    setCurrentPage(index);
-  };
-
+const Pages = ({ currentPage, totalPage, handlePage }) => {
   return (
     <div className={styles.pagination__pages}>
       {[...Array(totalPage)].map((_, index) => {
