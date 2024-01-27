@@ -1,96 +1,67 @@
-import NewsBanner from "./NewsBanner/NewsBanner";
-import NewsList from "./NewsList/NewsList";
 import Pagination from "../Pagination/Pagination";
-import Skeleton from "../Skeleton/Skeleton";
-import Categories from "../Categories/Categories";
 import Search from "../Search/Search";
-import { useEffect, useState } from "react";
+import NewsBannerSkeleton from "./NewsBanner/NewsBanner";
+import NewsListSkeleton from "./NewsList/NewsList";
+
+import { PAGE_SIZE, TOTAL_PAGES } from "../../constants";
 import { getCategories, getNews } from "../../api/apiNews";
 import { useDebounce } from "../../helpers/hooks/useDebounce";
-
-const skeletonsCount = 30;
-const totalPage = 10;
-const pageSize = 10;
+import { useFetch } from "../../helpers/hooks/useFetch";
+import CategoriesSkeleton from "../Categories/Categories";
+import { useFilters } from "../../helpers/hooks/useFilters";
 
 const News = () => {
-  const [news, setNews] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [currentCategory, setCurrentCategory] = useState("all");
+  const { filters, changeFilter } = useFilters({
+    page_number: 1,
+    page_size: PAGE_SIZE,
+    category: "All",
+    keywords: "",
+  });
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const debouncedKeywords = useDebounce(filters.keywords, 1000);
 
-  const [keywords, setKeywords] = useState("");
-  const debouncedKeywords = useDebounce(keywords, 1000);
+  const { data: dataNews, isLoading: newsIsLoading } = useFetch(getNews, {
+    ...filters,
+    keywords: debouncedKeywords,
+  });
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await getNews({
-          page_number: currentPage,
-          page_size: pageSize,
-          category: currentCategory,
-          keywords: debouncedKeywords,
-        });
-        setNews(response.news);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchNews();
-  }, [currentPage, currentCategory, debouncedKeywords]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await getCategories();
-        setCategories(["all", ...response.categories]);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  const skeletonList = [...Array(skeletonsCount)].map((_, index) => (
-    <Skeleton key={index} type={"item"} />
-  ));
+  const { data: dataCategories, isLoading: categoriesIsLoading } =
+    useFetch(getCategories);
 
   return (
     <>
-      <Categories
-        categories={categories}
-        currentCategory={currentCategory}
-        setCurrentCategory={setCurrentCategory}
+      <CategoriesSkeleton
+        categories={dataCategories && dataCategories.categories}
+        currentCategory={filters.category}
+        changeFilter={changeFilter}
+        isLoading={categoriesIsLoading}
+        type={"categories"}
       />
 
-      <Search
-        keywords={keywords}
-        setKeywords={setKeywords}
-        placeholder={news.length ? news[0].title : "Search"}
-      />
+      <Search keywords={filters.keywords} changeFilter={changeFilter} />
 
-      {isLoading ? (
-        <Skeleton type={"banner"} />
-      ) : (
-        news.length && <NewsBanner item={news[0]} />
-      )}
+      <NewsBannerSkeleton
+        item={dataNews && dataNews.news[0]}
+        isLoading={newsIsLoading}
+        type={"banner"}
+      />
 
       <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPage={totalPage}
+        currentPage={filters.page_number}
+        changeFilter={changeFilter}
+        totalPage={TOTAL_PAGES}
       />
 
-      {isLoading ? skeletonList : news.length && <NewsList news={news} />}
+      <NewsListSkeleton
+        news={dataNews && dataNews.news}
+        isLoading={newsIsLoading}
+        type={"list"}
+      />
 
       <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPage={totalPage}
+        currentPage={filters.page_number}
+        changeFilter={changeFilter}
+        totalPage={TOTAL_PAGES}
       />
     </>
   );
