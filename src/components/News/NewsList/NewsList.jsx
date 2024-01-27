@@ -1,3 +1,4 @@
+import { withSkeleton } from "../../../helpers/hocs/withSkeleton";
 import NewsItem from "../NewsItem/NewsItem";
 import styles from './NewsList.module.scss';
 
@@ -9,4 +10,6 @@ const NewsList = ({news}) => {
   return <ul className={styles.list}>{list}</ul>;
 };
 
-export default NewsList;
+const NewsListSkeleton = withSkeleton(NewsList);
+
+export default NewsListSkeleton;
