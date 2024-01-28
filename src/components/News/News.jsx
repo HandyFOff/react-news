@@ -1,35 +1,50 @@
 import styles from "./News.module.scss";
 
-import Pagination from "../Pagination/Pagination";
 import NewsListSkeleton from "./NewsList/NewsList";
-
-import { TOTAL_PAGES } from "../../constants";
 import NewsFilters from "../NewsFilters/NewsFilters";
 
-const News = ({ changeFilter, filters, dataNews, isLoading }) => {
+import { PAGE_SIZE, TOTAL_PAGES } from "../../constants";
+
+import { useFilters } from "../../helpers/hooks/useFilters";
+import { useFetch } from "../../helpers/hooks/useFetch";
+import { useDebounce } from "../../helpers/hooks/useDebounce";
+
+import { getNews } from "../../api/apiNews";
+import PaginationWrapper from "../PaginationWrapper/PaginationWrapper";
+
+const News = () => {
+  const { filters, changeFilter } = useFilters({
+    page_number: 1,
+    page_size: PAGE_SIZE,
+    category: "All",
+    keywords: "",
+  });
+
+  const debouncedKeywords = useDebounce(filters.keywords, 1000);
+
+  const { data, isLoading } = useFetch(getNews, {
+    ...filters,
+    keywords: debouncedKeywords,
+  });
+
   return (
     <div className={styles.section}>
       <NewsFilters changeFilter={changeFilter} filters={filters} />
-
-      <Pagination
+      <PaginationWrapper
+        top
+        bottom
         currentPage={filters.page_number}
         changeFilter={changeFilter}
-        totalPage={TOTAL_PAGES}
-      />
-
-      <NewsListSkeleton
-        news={dataNews && dataNews.news}
-        isLoading={isLoading}
-        type={"list"}
-        direction={"list"}
-        count={24}
-      />
-
-      <Pagination
-        currentPage={filters.page_number}
-        changeFilter={changeFilter}
-        totalPage={TOTAL_PAGES}
-      />
+        totalPages={TOTAL_PAGES}
+      >
+        <NewsListSkeleton
+          news={data && data.news}
+          isLoading={isLoading}
+          type={"list"}
+          direction={"list"}
+          count={24}
+        />
+      </PaginationWrapper>
     </div>
   );
 };
