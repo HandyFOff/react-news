@@ -3,10 +3,10 @@ import Pages from "./Pages/Pages";
 import Button from "../../ui/Button/Button";
 import { usePagination } from "../../helpers/hooks/usePagination";
 
-const Pagination = ({ currentPage, changeFilter, totalPage }) => {
+const Pagination = ({ currentPage, changeFilter, totalPages }) => {
   const { handleNextPage, handlePreviousPage, handlePage } = usePagination({
     changeFilter,
-    currentPage,
+    currentPage: currentPage,
   });
 
   return (
@@ -19,7 +19,7 @@ const Pagination = ({ currentPage, changeFilter, totalPage }) => {
       <Pages
         currentPage={currentPage}
         handlePage={handlePage}
-        totalPage={totalPage}
+        totalPage={totalPages}
       />
       <Button
         text={">"}

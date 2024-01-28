@@ -6,17 +6,16 @@ import CategoriesSkeleton from "../Categories/Categories";
 import Search from "../Search/Search";
 
 const NewsFilters = ({ filters, changeFilter }) => {
-  const { data: dataCategories, isLoading: categoriesIsLoading } =
-    useFetch(getCategories);
+  const { data, isLoading } = useFetch(getCategories);
 
   return (
     <div className={styles.filters}>
       <CategoriesSkeleton
         currentCategory={filters.category}
-        categories={dataCategories?.categories}
+        categories={data?.categories}
         changeFilter={changeFilter}
         type={"categories"}
-        isLoading={categoriesIsLoading}
+        isLoading={isLoading}
       />
 
       <Search keywords={filters.keywords} changeFilter={changeFilter} />
