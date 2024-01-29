@@ -1,6 +1,7 @@
+import { forwardRef } from "react";
 import Skeleton from "../../components/Skeleton/Skeleton";
 
-export const withSkeleton = (Component) => (props) => {
+export const withSkeleton = (Component) => forwardRef((props, ref) => {
   if (props.isLoading)
     return (
       <Skeleton
@@ -10,5 +11,5 @@ export const withSkeleton = (Component) => (props) => {
       />
     );
 
-  return <Component {...props} />;
-};
+  return <Component {...props} ref={ref} />;
+});
