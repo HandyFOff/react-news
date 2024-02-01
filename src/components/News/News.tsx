@@ -11,21 +11,25 @@ import { useDebounce } from "../../helpers/hooks/useDebounce";
 
 import { getNews } from "../../api/apiNews";
 import PaginationWrapper from "../PaginationWrapper/PaginationWrapper";
+import { IFetchProperties, IFilters, NewsApiResponse } from "../../interfaces";
 
 const News = () => {
-  const { filters, changeFilter } = useFilters({
+  const { filters, changeFilter } = useFilters<IFilters>({
     page_number: 1,
     page_size: PAGE_SIZE,
-    category: "All",
+    category: "all",
     keywords: "",
   });
 
   const debouncedKeywords = useDebounce(filters.keywords, 1000);
 
-  const { data, isLoading } = useFetch(getNews, {
-    ...filters,
-    keywords: debouncedKeywords,
-  });
+  const { data, isLoading } = useFetch<NewsApiResponse, IFetchProperties>(
+    getNews,
+    {
+      ...filters,
+      keywords: debouncedKeywords,
+    }
+  );
 
   return (
     <div className={styles.section}>

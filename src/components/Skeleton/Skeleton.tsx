@@ -1,6 +1,7 @@
+import { ISkeleton } from "../../interfaces";
 import styles from "./Skeleton.module.scss";
 
-const Skeleton = ({ type, direction, count }) => {
+const Skeleton: React.FC<ISkeleton> = ({ type, direction, count }) => {
   return type === "banner" ? (
     <div className={styles.skeletonBanner}></div>
   ) : type === "list" ? (
@@ -12,7 +13,6 @@ const Skeleton = ({ type, direction, count }) => {
       {[...Array(count)].map((_, index) => (
         <div
           key={index}
-          type={"item"}
           className={
             direction === "list" ? styles.skeletonItem : styles.skeletonBanner
           }

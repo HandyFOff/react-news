@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
 
-export const useFetch = (fetchFunction, params) => {
-  const [data, setData] = useState(null);
+interface IFetchResult<T> {
+  data: T | null | undefined;
+  isLoading: boolean;
+  error: Error | null;
+}
+
+type TFetchFunction<T, P> = (params?: P) => Promise<T>;
+
+export const useFetch = <T, P>(
+  fetchFunction: TFetchFunction<T, P>,
+  params?: P
+): IFetchResult<T> => {
+  const [data, setData] = useState<T | null | undefined>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const stringParams = params ? new URLSearchParams(params).toString() : "";
 
@@ -14,7 +25,7 @@ export const useFetch = (fetchFunction, params) => {
         const result = await fetchFunction(params);
         setData(result);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       } finally {
         setIsLoading(false);
       }

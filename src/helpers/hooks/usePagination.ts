@@ -1,6 +1,13 @@
 import { TOTAL_PAGES } from "../../constants";
+import { TChangeFilter } from "./useFilters";
 
-export const usePagination = ({ changeFilter, currentPage }) => {
+export const usePagination = ({
+  changeFilter,
+  currentPage,
+}: {
+  changeFilter: TChangeFilter;
+  currentPage: number;
+}) => {
   const handleNextPage = () => {
     if (currentPage < TOTAL_PAGES) {
       changeFilter("page_number", (currentPage += 1));
@@ -13,7 +20,7 @@ export const usePagination = ({ changeFilter, currentPage }) => {
     }
   };
 
-  const handlePage = (index) => {
+  const handlePage = (index: number) => {
     changeFilter("page_number", index);
   };
 
