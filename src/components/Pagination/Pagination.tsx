@@ -3,7 +3,13 @@ import Pages from "./Pages/Pages";
 import Button from "../../ui/Button/Button";
 import { usePagination } from "../../helpers/hooks/usePagination";
 
-const Pagination = ({ currentPage, changeFilter, totalPages }) => {
+export interface IPagination {
+  currentPage: number;
+  changeFilter: () => void;
+  totalPages: number;
+}
+
+const Pagination: React.FC<IPagination> = ({ currentPage, changeFilter, totalPages }) => {
   const { handleNextPage, handlePreviousPage, handlePage } = usePagination({
     changeFilter,
     currentPage: currentPage,

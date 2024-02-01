@@ -1,8 +1,13 @@
 import Image from "../../Image/Image";
 import styles from "./NewsBanner.module.scss";
 import { formatTimeAgo } from "../../../helpers/formatTimeAgo";
+import { INews } from "../../../interfaces";
 
-const NewsBanner = ({ item }) => {
+interface Props {
+  item: INews;
+}
+
+const NewsBanner: React.FC<Props> = ({ item }) => {
   return (
     <div className={styles.banner}>
       <Image image={item.image} />

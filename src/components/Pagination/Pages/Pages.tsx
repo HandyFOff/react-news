@@ -1,7 +1,13 @@
 import Button from "../../../ui/Button/Button";
 import styles from "./Pages.module.scss";
 
-const Pages = ({ currentPage, totalPage, handlePage }) => {
+interface Props {
+  currentPage: number;
+  totalPage: number;
+  handlePage: (index: number) => void;
+}
+
+const Pages: React.FC<Props> = ({ currentPage, totalPage, handlePage }) => {
   return (
     <div className={styles.pagination__pages}>
       {[...Array(totalPage)].map((_, index) => {

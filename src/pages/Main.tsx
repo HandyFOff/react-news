@@ -2,7 +2,7 @@ import styles from "./Main.module.scss";
 import News from "../components/News/News";
 import LatestNews from "../components/LatestNews/LatestNews";
 
-const Main = () => {
+const Main: React.FC = () => {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
