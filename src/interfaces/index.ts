@@ -24,8 +24,7 @@ export interface IFilters {
   keywords: string;
 }
 
-export type IFetchProperties = Partial<IFilters>
-
+export type IFetchProperties = Partial<IFilters>;
 
 export interface NewsApiResponse {
   news: INews[];
@@ -40,7 +39,12 @@ export interface CategoriesApiResponse {
 }
 
 export type SkeletonType = "banner" | "item" | "list" | "categories";
-export type SkeletonDirection = "list" | "grid"
+export type SkeletonDirection = "list" | "grid";
+
+export interface IThemeContext {
+  isDark: boolean;
+  handleTheme: () => void;
+}
 
 export type CategoriesType =
   | "all"

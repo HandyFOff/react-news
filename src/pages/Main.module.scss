@@ -1,12 +1,22 @@
 .container {
-    padding: 24px;
-    min-height: 100vh;
+  padding: 24px;
+  min-height: 100vh;
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 
-    @media (max-width: 768px) {
-       grid-template-columns: 1fr; 
-    }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.container.dark {
+  background-color: #23272f;
+  color: #f6f7f9;
+}
+
+.container.light {
+  background-color: #fff;
+  color: #000;
 }

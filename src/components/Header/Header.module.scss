@@ -1,8 +1,22 @@
 .header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 12px 24px;
+}
+
+.header.dark {
+  background-color: #23272f;
+}
+
+.header.light {
+  background-color: #fff;
+}
+
+.info {
+  display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 24px 24px 12px 24px;
 }
 
 .title {
@@ -19,4 +33,8 @@
   font-weight: 400;
   line-height: 16px;
   letter-spacing: 0em;
+}
+
+.img {
+  cursor: pointer;
 }

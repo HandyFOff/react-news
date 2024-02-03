@@ -1,0 +1,18 @@
+.wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.wrapper.dark p,
+.wrapper.dark h3,
+.wrapper.dark h1,
+.wrapper.dark a {
+  color: #f6f7f9;
+}
+
+.wrapper.light p,
+.wrapper.light h3,
+.wrapper.light h1,
+.wrapper.light a {
+  color: black;
+}

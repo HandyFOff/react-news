@@ -1,5 +1,6 @@
 import { cloneElement, useRef } from "react";
 import styles from "./Slider.module.scss";
+import Button from "../../ui/Button/Button";
 
 interface Props {
   children: React.ReactElement;
@@ -23,17 +24,9 @@ const Slider: React.FC<Props> = ({ children, step = 150 }) => {
 
   return (
     <div className={styles.slider}>
-      <button type="button" className={styles.arrow} onClick={handleScrollLeft}>
-        {"<"}
-      </button>
-      {cloneElement(children, {ref: sliderRef})}
-      <button
-        type="button"
-        className={styles.arrow}
-        onClick={handleScrollRight}
-      >
-        {">"}
-      </button>
+      <Button style={styles.arrow} handler={handleScrollLeft} text={"<"} />
+      {cloneElement(children, { ref: sliderRef })}
+      <Button style={styles.arrow} handler={handleScrollRight} text={">"} />
     </div>
   );
 };

@@ -9,14 +9,18 @@ export interface IPagination {
   totalPages: number;
 }
 
-const Pagination: React.FC<IPagination> = ({ currentPage, changeFilter, totalPages }) => {
+const Pagination: React.FC<IPagination> = ({
+  currentPage,
+  changeFilter,
+  totalPages,
+}) => {
   const { handleNextPage, handlePreviousPage, handlePage } = usePagination({
     changeFilter,
     currentPage: currentPage,
   });
 
   return (
-    <div className={styles.pagination}>
+    <div className={`${styles.pagination}`}>
       <Button
         text={"<"}
         handler={handlePreviousPage}

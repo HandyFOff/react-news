@@ -1,3 +1,4 @@
+import { useTheme } from "../../helpers/hooks/useTheme";
 import styles from "./Button.module.scss";
 
 interface PropsButton {
@@ -8,11 +9,21 @@ interface PropsButton {
   disabled?: boolean;
 }
 
-const Button: React.FC<PropsButton> = ({ text, handler, type, style, disabled }) => {
+const Button: React.FC<PropsButton> = ({
+  text,
+  handler,
+  type,
+  style,
+  disabled,
+}) => {
+  const { isDark } = useTheme();
+
   return (
     <button
       type={type ? type : "button"}
-      className={style ? style : styles.btn}
+      className={`${style ? style : styles.btn} ${
+        isDark ? styles.dark : styles.light
+      }`}
       onClick={handler}
       disabled={disabled}
     >
