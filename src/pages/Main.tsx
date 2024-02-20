@@ -5,6 +5,7 @@ import { useTheme } from "../helpers/hooks/useTheme";
 
 const Main: React.FC = () => {
   const { isDark } = useTheme();
+
   return (
     <main className={styles.main}>
       <div

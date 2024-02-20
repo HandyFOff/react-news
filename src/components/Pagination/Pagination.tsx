@@ -1,39 +1,42 @@
 import styles from "./Pagination.module.scss";
 import Pages from "./Pages/Pages";
 import Button from "../../ui/Button/Button";
-import { usePagination } from "../../helpers/hooks/usePagination";
+
+import { useAppDispatch } from "../../store";
+import { setFilters } from "../../store/slices/newsSlice";
+import { TOTAL_PAGES } from "../../constants";
 
 export interface IPagination {
   currentPage: number;
-  changeFilter: () => void;
   totalPages: number;
 }
 
-const Pagination: React.FC<IPagination> = ({
-  currentPage,
-  changeFilter,
-  totalPages,
-}) => {
-  const { handleNextPage, handlePreviousPage, handlePage } = usePagination({
-    changeFilter,
-    currentPage: currentPage,
-  });
+const Pagination: React.FC<IPagination> = ({ currentPage, totalPages }) => {
+  const dispatch = useAppDispatch();
+
+  const handlePagePrev = () => {
+    if (currentPage > 1) {
+      dispatch(setFilters({ key: "page_number", value: (currentPage -= 1) }));
+    }
+  };
+
+  const handlePageNext = () => {
+    if (currentPage < TOTAL_PAGES) {
+      dispatch(setFilters({ key: "page_number", value: (currentPage += 1) }));
+    }
+  };
 
   return (
     <div className={`${styles.pagination}`}>
       <Button
         text={"<"}
-        handler={handlePreviousPage}
+        handler={handlePagePrev}
         style={styles.pagination__btn}
       />
-      <Pages
-        currentPage={currentPage}
-        handlePage={handlePage}
-        totalPage={totalPages}
-      />
+      <Pages currentPage={currentPage} totalPage={totalPages} />
       <Button
         text={">"}
-        handler={handleNextPage}
+        handler={handlePageNext}
         style={styles.pagination__btn}
       />
     </div>

@@ -1,12 +1,11 @@
 import styles from "./LatestNews.module.scss";
 
 import BannersList from "../BannersList/BannersList";
-import { getLatestNews } from "../../api/apiNews";
-import { useFetch } from "../../helpers/hooks/useFetch";
-import { IFetchProperties, NewsApiResponse } from "../../interfaces";
+import { useGetLatestNewsQuery } from "../../store/services/newsApi";
 
 const LatestNews: React.FC = () => {
-  const { data, isLoading: isLoading } = useFetch<NewsApiResponse, IFetchProperties>(getLatestNews);
+  const { data, isLoading } = useGetLatestNewsQuery(null);
+
   return (
     <div className={styles.section}>
       <BannersList

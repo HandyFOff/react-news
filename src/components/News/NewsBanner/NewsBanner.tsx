@@ -11,7 +11,9 @@ const NewsBanner: React.FC<Props> = ({ item }) => {
   return (
     <div className={styles.banner}>
       <Image image={item.image} />
-      <a href={item.url} target="_blank" className={styles.title}>{item.title}</a>
+      <a href={item.url} target="_blank" className={styles.title}>
+        {item.title}
+      </a>
       <div className={styles.info}>
         <span className={styles.extra}>{formatTimeAgo(item.published)}</span>
         <span>·</span>

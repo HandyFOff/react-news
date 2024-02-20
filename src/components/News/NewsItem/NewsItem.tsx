@@ -3,7 +3,7 @@ import { INews } from "../../../interfaces";
 import styles from "./NewsItem.module.scss";
 
 interface Props {
-  item: INews
+  item: INews;
 }
 
 const NewsItem: React.FC<Props> = ({ item }) => {

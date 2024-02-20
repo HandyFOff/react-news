@@ -1,0 +1,42 @@
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IFilters, INews } from "../../../interfaces";
+import { PAGE_SIZE } from "../../../constants";
+
+interface NewsSlice {
+  news: INews[];
+  filters: IFilters;
+}
+
+const initialState: NewsSlice = {
+  news: [],
+  filters: {
+    page_number: 1,
+    page_size: PAGE_SIZE,
+    category: "all",
+    keywords: "",
+  },
+};
+
+interface SetFilters {
+  key: string;
+  value: string | number | null;
+}
+
+const newsSlice = createSlice({
+  name: "newsSlice",
+  initialState,
+  reducers: {
+    setNews: (state, action: PayloadAction<INews[]>) => {
+      state.news = action.payload;
+    },
+    setFilters: (state, action: PayloadAction<SetFilters>) => {
+      state.filters = {
+        ...state.filters,
+        [action.payload.key]: action.payload.value,
+      };
+    },
+  },
+});
+
+export default newsSlice.reducer;
+export const { setFilters, setNews } = newsSlice.actions;
