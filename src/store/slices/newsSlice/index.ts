@@ -1,11 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IFilters, INews } from "../../../interfaces";
+import { INews } from "../../../interfaces";
 import { PAGE_SIZE } from "../../../constants";
-
-interface NewsSlice {
-  news: INews[];
-  filters: IFilters;
-}
+import { NewsSlice, SetFilters } from "./types";
 
 const initialState: NewsSlice = {
   news: [],
@@ -17,17 +13,14 @@ const initialState: NewsSlice = {
   },
 };
 
-interface SetFilters {
-  key: string;
-  value: string | number | null;
-}
-
 const newsSlice = createSlice({
   name: "newsSlice",
   initialState,
   reducers: {
-    setNews: (state, action: PayloadAction<INews[]>) => {
-      state.news = action.payload;
+    setNews: (state, action: PayloadAction<INews[] | undefined>) => {
+      if (action.payload) {
+        state.news = action.payload;
+      }
     },
     setFilters: (state, action: PayloadAction<SetFilters>) => {
       state.filters = {

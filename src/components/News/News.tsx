@@ -8,7 +8,7 @@ import { useDebounce } from "../../helpers/hooks/useDebounce";
 
 import PaginationWrapper from "../PaginationWrapper/PaginationWrapper";
 import { useGetAllNewsQuery } from "../../store/services/newsApi";
-import { useAppSelector } from "../../store";
+import { useAppSelector } from "../../store/hooks";
 
 const News = () => {
   const filters = useAppSelector((state) => state.newsSlice.filters);

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setFilters } from "../../store/slices/newsSlice";
 import styles from "./Search.module.scss";
 

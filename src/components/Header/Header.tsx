@@ -5,6 +5,7 @@ import { themes } from "../../assets/icons";
 
 const Header: React.FC = () => {
   const { isDark, handleTheme } = useTheme();
+  
   return (
     <header
       className={`${styles.header} ${isDark ? styles.dark : styles.light}`}
