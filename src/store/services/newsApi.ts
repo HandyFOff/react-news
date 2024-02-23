@@ -14,18 +14,21 @@ export const newsApi = createApi({
       query: (params) => ({
         url: "search",
         params: { apiKey: API_KEY, ...params },
+        signal: AbortSignal.timeout(5000),
       }),
     }),
     getLatestNews: builder.query<NewsApiResponse, null>({
       query: () => ({
         url: "latest-news",
         params: { apiKey: API_KEY },
+        signal: AbortSignal.timeout(5000),
       }),
     }),
     getCategories: builder.query<CategoriesApiResponse, null>({
       query: () => ({
         url: "available/categories",
         params: { apiKey: API_KEY },
+        signal: AbortSignal.timeout(5000),
       }),
     }),
   }),

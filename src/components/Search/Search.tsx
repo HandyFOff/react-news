@@ -5,6 +5,7 @@ import styles from "./Search.module.scss";
 const Search: React.FC = () => {
   const { keywords } = useAppSelector((state) => state.newsSlice.filters);
   const dipatch = useAppDispatch();
+  
   return (
     <div className={styles.search}>
       <input

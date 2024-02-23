@@ -7,7 +7,7 @@ interface Props {
 const Image: React.FC<Props> = ({ image }) => {
   return (
     <div className={styles.wrapper}>
-      {image && <img src={image} alt="news" className={styles.image} />}
+      {image && <img src={image === "None" ? '' : image} alt="news" className={styles.image} />}
     </div>
   );
 };
