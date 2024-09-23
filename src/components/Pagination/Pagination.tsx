@@ -15,18 +15,23 @@ const Pagination: React.FC<IPagination> = ({ currentPage, totalPages }) => {
   const dispatch = useAppDispatch();
 
   const handlePagePrev = () => {
+    console.log(currentPage);
+    
     if (currentPage > 1) {
       dispatch(setFilters({ key: "page_number", value: (currentPage -= 1) }));
     }
   };
 
   const handlePageNext = () => {
+    console.log(currentPage);
+
     if (currentPage < TOTAL_PAGES) {
       dispatch(setFilters({ key: "page_number", value: (currentPage += 1) }));
     }
   };
 
   const handlePage = (index: number) => {
+    console.log(currentPage);
     dispatch(setFilters({ key: "page_number", value: index + 1 }))
   };
 
