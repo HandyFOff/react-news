@@ -8,7 +8,7 @@ const initialState: NewsSlice = {
   filters: {
     page_number: 1,
     page_size: PAGE_SIZE,
-    category: "all",
+    category: "general",
     keywords: "",
   },
 };

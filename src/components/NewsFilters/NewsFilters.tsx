@@ -12,7 +12,7 @@ const NewsFilters: React.FC = () => {
     <div className={styles.filters}>
       <Slider step={100}>
         <Categories
-          categories={data && ["all", ...data.categories]}
+          categories={data && [...data.categories]}
           type={"categories"}
           isLoading={isLoading}
           direction={"list"}

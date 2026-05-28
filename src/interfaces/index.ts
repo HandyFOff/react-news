@@ -47,7 +47,7 @@ export interface IThemeContext {
 }
 
 export type CategoriesType =
-  | "all"
+  | "general"
   | "regional"
   | "technology"
   | "lifestyle"
