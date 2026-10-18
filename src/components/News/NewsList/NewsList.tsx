@@ -12,7 +12,8 @@ const NewsList: React.FC<Props> = ({ news }) => {
     return <NewsItem key={item.id} item={item} />;
   });
 
-  return <ul className={styles.list}>{list}</ul>;
+  return <ul className={styles.list}>{list}</ul>
+
 };
 
 const NewsListSkeleton = withSkeleton(NewsList);

@@ -4,7 +4,15 @@ import BannersList from "../BannersList/BannersList";
 import { useGetLatestNewsQuery } from "../../store/services/newsApi";
 
 const LatestNews: React.FC = () => {
-  const { data, isLoading } = useGetLatestNewsQuery(null);
+  const { data, isLoading, isError } = useGetLatestNewsQuery(null);
+
+  if (isError) {
+    return (
+      <div className={styles.error}>
+        <span>Oops.. No news found :( Try on VPN</span>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.section}>

@@ -12,18 +12,26 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useEffect } from "react";
 import { setNews } from "../../store/slices/newsSlice";
 
-const News = () => {
+const News: React.FC = () => {
   const filters = useAppSelector((state) => state.newsSlice.filters);
-
   const debouncedKeywords = useDebounce(filters.keywords, 1000);
-
-  const { data, isLoading } = useGetAllNewsQuery({...filters, keywords: debouncedKeywords});
-
+  const { data, isLoading, isError } = useGetAllNewsQuery({
+    ...filters,
+    keywords: debouncedKeywords,
+  });
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setNews(data?.news));
   }, [isLoading, data, dispatch]);
+
+  if (isError) {
+    return (
+      <div className={styles.error}>
+        <span>Oops.. No news found :( Try on VPN</span>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.section}>

@@ -1,6 +1,10 @@
+.main {
+  flex: 1;
+}
+
 .container {
   padding: 24px;
-  min-height: 100vh;
+  height: 100%;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
